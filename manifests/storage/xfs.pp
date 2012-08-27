@@ -21,7 +21,7 @@ define swift::storage::xfs(
   # does this have to be refreshonly?
   # how can I know if this drive has been formatted?
   exec { "mkfs-${name}":
-    command     => "mkfs.xfs -i size=${byte_size} ${device}",
+    command     => "mkfs.xfs -i -f size=${byte_size} ${device}",
     path        => ['/sbin/'],
     refreshonly => true,
     require     => Package['xfsprogs'],
