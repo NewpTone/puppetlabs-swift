@@ -16,18 +16,27 @@ define swift::storage::xfs(
   $byte_size    = '1024',
   $mnt_base_dir = '/srv/node',
   $loopback     = false,
-  $force	= undef,
+  $force	= false,
 ) {
 
   include swift::xfs
   # does this have to be refreshonly?
   # how can I know if this drive has been formatted?
-  exec { "mkfs-${name}":
-    command     => "mkfs.xfs -i ${force} size=${byte_size} ${device}",
-    path        => ['/sbin/'],
-    refreshonly => true,
-    require     => Package['xfsprogs'],
+  case $force {
+	'true':	{
+	    $option = '-f'
+	}
+    	'false':{
+	    $option = ''
+	}
   }
+	  exec { "mkfs-${name}":
+	    command     => "mkfs.xfs -i ${option} size=${byte_size} ${device}",
+	    path        => ['/sbin/'],
+	    refreshonly => true,
+	    require     => Package['xfsprogs'],
+  }
+
 
   swift::storage::mount { $name:
     device         => $device,
