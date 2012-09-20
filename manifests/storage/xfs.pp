@@ -30,11 +30,12 @@ define swift::storage::xfs(
 	    $option = ''
 	}
   }
-	  exec { "mkfs-${name}":
-	    command     => "mkfs.xfs -i ${option} size=${byte_size} ${device}",
-	    path        => ['/sbin/'],
-	    refreshonly => true,
-	    require     => Package['xfsprogs'],
+
+  exec { "mkfs-${name}":
+    command     => "mkfs.xfs -i ${option} size=${byte_size} ${device}",
+    path        => ['/sbin/'],
+    refreshonly => true,
+    require     => Package['xfsprogs'],
   }
 
 
