@@ -10,7 +10,7 @@
 #
 # [*byte_size*] Byte size to use for every inode in the created filesystem.
 #  It is recommened to use 1024 to ensure that the metadata can fit in a single inode.
-# [*force*] Use -f option or not in the creating filesystem.The default is ''.
+# [*force*] Use -f option or not in the creating filesystem.The default is false.
 define swift::storage::xfs(
   $device,
   $byte_size    = '1024',
@@ -30,11 +30,12 @@ define swift::storage::xfs(
 	    $option = ''
 	}
   }
-	  exec { "mkfs-${name}":
-	    command     => "mkfs.xfs -i ${option} size=${byte_size} ${device}",
-	    path        => ['/sbin/'],
-	    refreshonly => true,
-	    require     => Package['xfsprogs'],
+
+  exec { "mkfs-${name}":
+    command     => "mkfs.xfs -i ${option} size=${byte_size} ${device}",
+    path        => ['/sbin/'],
+    refreshonly => true,
+    require     => Package['xfsprogs'],
   }
 
 
