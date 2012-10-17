@@ -10,18 +10,20 @@
 #
 # [*byte_size*] Byte size to use for every inode in the created filesystem.
 #  It is recommened to use 1024 to ensure that the metadata can fit in a single inode.
+# [*force*] Use -f option or not in the creating filesystem.The default is ''.
 define swift::storage::xfs(
   $device,
   $byte_size    = '1024',
   $mnt_base_dir = '/srv/node',
-  $loopback     = false
+  $loopback     = false,
+  $force	= '',
 ) {
 
   include swift::xfs
   # does this have to be refreshonly?
   # how can I know if this drive has been formatted?
   exec { "mkfs-${name}":
-    command     => "mkfs.xfs -i -f size=${byte_size} ${device}",
+    command     => "mkfs.xfs -i ${force} size=${byte_size} ${device}",
     path        => ['/sbin/'],
     refreshonly => true,
     require     => Package['xfsprogs'],

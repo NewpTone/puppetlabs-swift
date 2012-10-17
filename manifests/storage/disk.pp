@@ -48,6 +48,7 @@ define swift::storage::disk(
     byte_size    => $byte_size,
     subscribe    => Exec["create_partition-${name}"],
     loopback     => false,
+    force	 => '',
   }
 
 }
