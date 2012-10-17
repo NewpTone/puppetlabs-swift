@@ -11,6 +11,8 @@
 define swift::storage::disk(
   $base_dir     = '/dev',
   $mnt_base_dir = '/srv/node',
+  $byte_size    = '1024',
+  $force	= false,
 ) {
 
   if(!defined(File[$base_dir])) {
@@ -47,7 +49,7 @@ define swift::storage::disk(
     byte_size    => $byte_size,
     subscribe    => Exec["create_partition-${name}"],
     loopback     => false,
-    force	 => '',
+    force	 => $force,
   }
 
 }
