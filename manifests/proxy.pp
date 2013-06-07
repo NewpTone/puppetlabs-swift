@@ -39,7 +39,7 @@
 # Copyright 2011 Puppetlabs Inc, unless otherwise noted.
 #
 class swift::proxy(
-  $proxy_local_net_ip,
+  $proxy_local_net_ip = '0.0.0.0',
   $port = '8080',
   $pipeline = ['healthcheck', 'cache', 'tempauth', 'proxy-server'],
   $workers = $::processorcount,

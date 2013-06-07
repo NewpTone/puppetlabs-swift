@@ -12,11 +12,6 @@ define swift::storage::disk(
   $byte_size    = '1024',
 ) {
 
-  if(!defined(File[$base_dir])) {
-    file { $base_dir:
-      ensure => directory,
-    }
-  }
 
   if(!defined(File[$mnt_base_dir])) {
     file { $mnt_base_dir:

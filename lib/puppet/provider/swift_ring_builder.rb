@@ -87,7 +87,7 @@ class Puppet::Provider::SwiftRingBuilder < Puppet::Provider
     [:zone, :weight].each do |param|
       raise(Puppet::Error, "#{param} is required") unless resource[param]
     end
-    region=(resource[:zone].to_i/4+1)
+    region=(resource[:zone].to_i/7+1)
     swift_ring_builder(
       builder_file_path,
       'add',
